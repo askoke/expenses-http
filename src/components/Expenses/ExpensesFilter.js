@@ -5,7 +5,7 @@ import './ExpensesFilter.css';
 const ExpensesFilter = (props) => {
 
     const saveExpenseFilterHandler = (enteredExpenseFilter) => {
-        props.onAddExpenseFilter(enteredExpenseFilter)
+        props.onChangeFilter(enteredExpenseFilter)
     }
 
     const selectHandler = (event) => {
