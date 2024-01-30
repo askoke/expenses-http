@@ -6,10 +6,13 @@ const app = express();
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*'); // allow all domains
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Header', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     next();
 });
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const readFile = (filename) => {
     return new Promise((resolve, reject) => {
@@ -46,6 +49,17 @@ app.get('/expenses', async (req, res) => {
             console.log(err)
             res.status(500).send('Error')
         })
+})
+
+app.post('/add-expense', async (req, res) => {
+    console.log(req.body)
+    readFile('./data/expenses.json')
+    .then(expenses => {
+        
+        expenses.push(req.body)
+        const data = JSON.stringify(expenses, null, 2)
+        writeFile('./data/expenses.json', data)
+    })
 })
 
 app.listen(3005, () => {

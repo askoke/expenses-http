@@ -14,12 +14,12 @@ const App = () => {
     const getExpenses = async () => {
       setIsFetching(true)
       try {
-        const response = await fetch('http://localhost:3005/exspenses')
+        const response = await fetch('http://localhost:3005/expenses')
         const responseData = await response.json()
         if(!response.ok){
           throw new Error('Failed fetching data')
         }
-        setExpenses(responseData.expenses)
+        setExpenses(responseData)
       } catch (error) {
         setError({
           title: 'An error ocured!',
@@ -53,7 +53,7 @@ const App = () => {
         if(!response.ok){
           throw new Error('Failed fetching data')
         }
-        setExpenses(responseData.expenses)
+        setExpenses([expense, ...expenses])
       } catch (error) {
         setError({
           title: 'An error ocured!',
