@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Expenses from './components/Expenses/Expenses.js';
 import NewExpense from './components/NewExpense/NewExpense.js'
-import { response } from 'express';
+import Error from "./components/UI/Error"
 
 const App = () => {
   const [expenses, setExpenses] = useState([])
@@ -14,8 +14,8 @@ const App = () => {
     const getExpenses = async () => {
       setIsFetching(true)
       try {
-        const respones = await fetch('http://localhost:3005/exspenses')
-        const responseData = await reponse.json()
+        const response = await fetch('http://localhost:3005/exspenses')
+        const responseData = await response.json()
         if(!response.ok){
           throw new Error('Failed fetching data')
         }
@@ -42,14 +42,14 @@ const App = () => {
   const addExpenseHandler = (expense) => {
     const addExpense = async (expense) => {
       try {
-        const reposne = await fetch('http://localhost:3005/add-expense', {
+        const response = await fetch('http://localhost:3005/add-expense', {
           method: 'POST',
           body: JSON.stringify(expense),
           headers: {
             'Content-Type': 'application/json'
           }
         })
-        const responseData = await reponse.json()
+        const responseData = await response.json()
         if(!response.ok){
           throw new Error('Failed fetching data')
         }
